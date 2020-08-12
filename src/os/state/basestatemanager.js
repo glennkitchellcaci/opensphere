@@ -141,17 +141,42 @@ os.state.BaseStateManager.prototype.registerPersistable = function(key, clazz) {
 
 
 /**
- * Gets a registered {@link os.IPersistable} class.
+ * Gets an instance of a registered {@link os.IPersistable} class.
  *
  * @param {string} key The object key
  * @return {os.IPersistable}
+ * @suppress {checkTypes} To allow the catch() failover to exist
  */
 os.state.BaseStateManager.prototype.getPersistable = function(key) {
-  if (key in this.persistableMap_) {
-    return new this.persistableMap_[key]();
+  if (this.isPersistable(key)) { // check for nulls, etc
+    var Clazz = this.persistableMap_[key];
+    try {
+      var instance = new Clazz();
+      return instance;
+    } catch (e) {
+      // a non-constructable got into the User's state configs, e.g. an arrow function
+      if (typeof Clazz != 'function') {
+        goog.log.error(this.log, 'Registered peristance class for ' + key + ' could not be constructed!');
+      } else {
+        goog.log.error(this.log, 'Registered peristance class for ' + key + ' is non-constructable! ...trying call()');
+        return Clazz();
+      }
+    }
   }
 
   return null;
+};
+
+
+/**
+ * Return true if there is a registered {@link os.IPersistable} class for this key
+ *
+ * @param {string} key The object key
+ * @return {boolean}
+ */
+os.state.BaseStateManager.prototype.isPersistable = function(key) {
+  // filter out null-ed map entries and object-level properties (e.g. toString)
+  return (!!this.persistableMap_[key] && this.persistableMap_.hasOwnProperty(key));
 };
 
 
