@@ -19,6 +19,8 @@ class HackPlugin extends AbstractPlugin {
   constructor() {
     super();
     this.id = ID;
+
+    // inits the svelte component
     new Hack({
       target: document.querySelector('#svelte-app')
     });
@@ -33,4 +35,4 @@ class HackPlugin extends AbstractPlugin {
 }
 
 
-exports = HackPlugin;
+export default HackPlugin;

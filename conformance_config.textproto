@@ -228,3 +228,10 @@ requirement: {
   value: 'goog.object.extend'
   error_message: 'goog.object.extend is not permitted. Use Object.assign instead.'
 }
+
+requirement: {
+  type: BANNED_CODE_PATTERN
+  value: 'function template() { if (false) {} }'
+  error_message: 'unreachable code. HA!'
+  whitelist_regexp: '.svelte$'
+}

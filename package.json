@@ -58,7 +58,8 @@
         "openlayers/externs/olx.js",
         "openlayers/externs/proj4js.js",
         "openlayers/externs/topojson.js",
-        "ol-cesium/externs/olcsx.js"
+        "ol-cesium/externs/olcsx.js",
+        "./osx.js"
       ],
       "entry_point": [
         "goog:osmain"
@@ -74,7 +75,8 @@
         ".build/",
         "/google-closure-library/",
         "/openlayers/",
-        "/ol-cesium/"
+        "/ol-cesium/",
+        "/node_modules/"
       ]
     },
     "moduleDefines": {
