@@ -393,7 +393,6 @@ const addLayerResources = [
   }
 ];
 
-
 /**
  *
  */

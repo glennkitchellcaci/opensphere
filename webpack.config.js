@@ -17,7 +17,20 @@ module.exports = (env, argv) => {
       filename: isProduction ? 'opensphere.min.js' : 'opensphere.js'
     },
     devtool: isProduction ? 'source-map' : 'eval',
-    watch: !isProduction,
+    module: {
+      rules: [
+        {
+          test: /\.(html|svelte)$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'svelte-loader',
+            options: {
+              hotReload: true
+            }
+          }
+        }
+      ]
+    },
     optimization: {
       minimize: isProduction,
       minimizer: [
@@ -45,6 +58,14 @@ module.exports = (env, argv) => {
           depsFile
         ]
       })
-    ]
+    ],
+    resolve: {
+      alias: {
+        svelte: path.resolve('../../node_modules', 'svelte')
+      },
+      extensions: ['.mjs', '.js', '.svelte'],
+      mainFields: ['svelte', 'browser', 'module', 'main']
+    },
+    watch: !isProduction
   };
 };
