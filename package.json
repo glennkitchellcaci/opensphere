@@ -76,7 +76,8 @@
         "/google-closure-library/",
         "/openlayers/",
         "/ol-cesium/",
-        "/node_modules/"
+        "/node_modules/",
+        "**/*.svelte"
       ]
     },
     "moduleDefines": {

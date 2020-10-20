@@ -233,5 +233,5 @@ requirement: {
   type: BANNED_CODE_PATTERN
   value: 'function template() { if (false) {} }'
   error_message: 'unreachable code. HA!'
-  whitelist_regexp: '.svelte$'
+  whitelist_regexp: '(.svelte)$'
 }

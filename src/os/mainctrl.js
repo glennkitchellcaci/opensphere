@@ -523,7 +523,7 @@ os.MainCtrl.prototype.addPlugins = function() {
   os.ui.pluginManager.addPlugin(new plugin.descriptor.SearchPlugin());
   os.ui.pluginManager.addPlugin(new plugin.area.AreaPlugin());
   os.ui.pluginManager.addPlugin(new plugin.areadata.AreaDataPlugin());
-  os.ui.pluginManager.addPlugin(new window.HackPlugin());
+  os.ui.pluginManager.addPlugin(new window.HackPlugin.default());
   os.ui.pluginManager.addPlugin(new plugin.audio.AudioPlugin());
   os.ui.pluginManager.addPlugin(plugin.capture.CapturePlugin.getInstance());
   os.ui.pluginManager.addPlugin(plugin.config.Plugin.getInstance());
