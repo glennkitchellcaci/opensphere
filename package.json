@@ -77,7 +77,7 @@
         "/openlayers/",
         "/ol-cesium/",
         "/node_modules/",
-        "**/*.svelte"
+        ".svelte"
       ]
     },
     "moduleDefines": {

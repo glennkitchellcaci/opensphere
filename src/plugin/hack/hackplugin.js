@@ -19,18 +19,16 @@ class HackPlugin extends AbstractPlugin {
   constructor() {
     super();
     this.id = ID;
-
-    // inits the svelte component
-    new Hack({
-      target: document.querySelector('#svelte-app')
-    });
   }
 
   /**
    * @inheritDoc
    */
   init() {
-
+    // drops the svelte component into the "target"
+    new Hack({
+      target: document.querySelector('#svelte-app')
+    });
   }
 }
 
