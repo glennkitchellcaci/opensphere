@@ -12,7 +12,7 @@ const ID = 'hack';
 /**
  * Plugin to read AreaData services configs into the registry for use by other plugins
  */
-class HackPlugin extends AbstractPlugin {
+export class HackPlugin extends AbstractPlugin {
   /**
    * constructor
    */
@@ -31,6 +31,3 @@ class HackPlugin extends AbstractPlugin {
     });
   }
 }
-
-
-export default HackPlugin;

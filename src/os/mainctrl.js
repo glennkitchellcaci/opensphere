@@ -173,7 +173,7 @@ goog.require('plugin.weather.WeatherPlugin');
 goog.require('plugin.wmts.Plugin');
 goog.require('plugin.xyz.XYZPlugin');
 
-var HackPlugin = require('../plugin/hack/hackplugin.js');
+var {HackPlugin} = require('../plugin/hack/hackplugin.js');
 window.HackPlugin = HackPlugin;
 
 
@@ -523,7 +523,7 @@ os.MainCtrl.prototype.addPlugins = function() {
   os.ui.pluginManager.addPlugin(new plugin.descriptor.SearchPlugin());
   os.ui.pluginManager.addPlugin(new plugin.area.AreaPlugin());
   os.ui.pluginManager.addPlugin(new plugin.areadata.AreaDataPlugin());
-  os.ui.pluginManager.addPlugin(new window.HackPlugin.default());
+  os.ui.pluginManager.addPlugin(new window.HackPlugin());
   os.ui.pluginManager.addPlugin(new plugin.audio.AudioPlugin());
   os.ui.pluginManager.addPlugin(plugin.capture.CapturePlugin.getInstance());
   os.ui.pluginManager.addPlugin(plugin.config.Plugin.getInstance());

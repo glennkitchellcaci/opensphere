@@ -6,6 +6,7 @@ goog.require('os.geo.jsts');
 goog.require('os.ui.buffer.bufferDialogDirective');
 goog.require('os.ui.query');
 goog.require('os.ui.query.cmd.AreaAdd');
+goog.require('os.ui.svelte.svelteDirective');
 
 
 /**
@@ -283,7 +284,8 @@ os.buffer.launchDialog = function(options) {
       'label': 'Create Buffer Region' + (options['features'] ? '' : 's'),
       'icon': 'fa ' + os.buffer.ICON,
       'x': 'center',
-      'y': 'center',
+      // 'y': 'center',
+      'top': '100',
       'width': '425',
       'min-width': '300',
       'max-width': '800',
@@ -291,7 +293,8 @@ os.buffer.launchDialog = function(options) {
       'show-close': 'true'
     };
 
-    var template = '<bufferdialog></bufferdialog>';
+    // TODO configure a "type" scope variable to initialize the desired svelte component inside this angular directive
+    var template = '<svelte></svelte>';
     os.ui.window.create(windowOptions, template, undefined, undefined, undefined, options);
   }
 };
