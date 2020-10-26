@@ -1,5 +1,7 @@
 <script>
   import '../../config/settings.js'; //goog.provide() files dirty up the window scope
+  import BufferForm from './BufferForm.svelte';
+
   const Settings = os.config.Settings; // TODO do this more cleanly
 
   const loading = false; // TODO
@@ -18,7 +20,8 @@
 <div class="d-flex flex-column">
   <div class="modal-body">
     <div ng-form="bufferDialogForm">
-      <bufferform config="config" init-sources="sources" show-source-picker="buffer.showSourcePicker" warning-message="buffer.warningMessage"></bufferform>
+      <BufferForm />
+      <!-- bufferform config="config" init-sources="sources" show-source-picker="buffer.showSourcePicker" warning-message="buffer.warningMessage"></bufferform -->
     </div>
   </div>
   <div class="modal-footer">

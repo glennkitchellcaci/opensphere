@@ -1,0 +1,92 @@
+<!-- WARNING: This is NOT converted to JS and Svelte -->
+<!-- Added here to show that we can hot-swap Svelte components and AngularJS directives -->
+<script>
+  var buffer = {help: { distance: 'Distance Help', inside: 'Inside Help', outside: 'Outside Help', units: 'Unit of measure'}};
+</script>
+
+<div class="buffer-form">
+  <p>Svelte!</p>
+  <form name="bufferForm" class="form-compact form-horizontal form-popover-help">
+    <basicinfo config="config" columns="buffer.columns" help="buffer.help"></basicinfo>
+
+    <div class="row mt-1" title={buffer.help.distance}>
+      <label class="col-form-label col-4 text-right u-required">Buffer Distance</label>
+      <div class="col form-inline">
+        <input class="form-control col-11" type="number" name="distance" min="0" step="any" ng-min="1e-16" ng-change="buffer.updatePreview()" ng-model="config.distance" ng-required="true">
+        <span class="ml-auto">
+          <popover x-title="'Buffer Distance'" x-content={buffer.help.distance} x-pos="'right'"></popover>
+        </span>
+      </div>
+    </div>
+
+    <div class="row mt-1" title={buffer.help.units}>
+      <label class="col-form-label col-4 text-right u-required">Distance Units</label>
+      <div class="col form-inline">
+        <select class="custom-select col-11" name="units"
+          ng-model="config.units"
+          ng-required="true"
+          ng-change="buffer.updatePreview()"
+          ng-options="unit as label for (label, unit) in buffer.units"></select>
+        <span class="ml-auto">
+          <popover x-title="'Distance Units'" x-content={buffer.help.units} x-pos="'right'"></popover>
+        </span>
+      </div>
+    </div>
+
+    <div class="row mt-1" title={buffer.help.outside} ng-if="buffer.supportsBidirectional()">
+      <label class="col-form-label col-4 text-right">Buffer Outside</label>
+      <div class="col form-inline">
+        <input class="form-control col-auto" type="checkbox" name="outside" ng-model="config.outside" ng-change="buffer.updatePreview()" ng-required="!config.inside">
+        <span class="ml-auto">
+          <popover x-title="'Buffer Outside'" x-content={buffer.help.outside} x-pos="'right'"></popover>
+        </span>
+      </div>
+    </div>
+
+    <div class="row mt-1" title={buffer.help.inside} ng-if="buffer.supportsBidirectional()">
+      <label class="col-form-label col-4 text-right">Buffer Inside</label>
+      <div class="col form-inline">
+        <input class="form-control col-auto" type="checkbox" name="inside" ng-model="config.inside" ng-change="buffer.updatePreview()" ng-required="!config.outside">
+        <span class="ml-auto">
+          <popover x-title="'Buffer Inside'" x-content={buffer.help.inside} x-pos="'right'"></popover>
+        </span>
+      </div>
+    </div>
+
+    <div class="row mt-1" title={buffer.livePreviewContent}>
+      <label class="col-form-label col-4 text-right" ng-disabled="!buffer.liveAllowed">Live Preview</label>
+      <div class="col form-inline">
+        <input class="form-control col-auto" type="checkbox" name="liveEnabled" ng-model="buffer.liveEnabled" ng-change="buffer.updatePreview()" ng-disabled="!buffer.liveAllowed">
+        <span class="ml-auto">
+          <popover x-title="'Buffer Preview'" x-content={buffer.livePreviewContent} x-icon="buffer.livePreviewIcon" x-pos="'right'"></popover>
+        </span>
+      </div>
+    </div>
+
+    <div class="row mt-1" ng-if="!buffer.liveEnabled">
+      <label class="col-form-label col-4 text-right">Update Preview</label>
+      <div class="col form-inline">
+        <button type="button" class="btn btn-primary col-auto" ng-click="buffer.updatePreview(true)">
+          <i class="fa fa-refresh"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div ng-if="showSourcePicker">
+    <div ng-if="buffer.sourceItems.length > 0">
+      <h5 class="mt-3 text-center">Source Features</h5>
+      <div class="form-check pl-4">
+        <label class="form-check-label" title="If checked, only selected features will be included in the buffer. If unchecked or nothing is selected, all visible features will be buffered.">
+          <input class="form-check-input" type="checkbox" name="buffer.useSelected" ng-model="buffer.useSelected" ng-change="buffer.updateItems()">
+          Use Selected Features
+        </label>
+      </div>
+      <checklist name="sourcelist" allow-multiple="false" items="buffer.sourceItems"></checklist>
+    </div>
+    <div ng-if="buffer.sourceItems.length <= 0">
+      <i class="fa fa-warning text-warning"></i>
+      <em>There are currently no visible sources. Please add at least one data source to the application and make sure it's visible.</em>
+    </div>
+  </div>
+</div>
