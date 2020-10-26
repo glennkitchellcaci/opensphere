@@ -1,4 +1,4 @@
 <script>
-  console.log("All your base are belong to us.");
+  console.log("Svelte running...");
 </script>
-<p>Hacked</p>
+<p>Svelte Plugin!</p>

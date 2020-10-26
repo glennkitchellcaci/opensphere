@@ -24,14 +24,15 @@ class Controller {
     this.type_ = null;
 
     // TODO load the svelte components dynamically
-    switch ($scope['type']) {
+    switch ($scope['sveltecomponent']) {
+      case (BufferDialog.ID):
       default:
         this.type_ = BufferDialog;
         break;
     }
 
     // let angular settle before initializing
-    osUI.waitForAngular(this.onAngularReady_.bind(this, $element));
+    osUI.waitForAngular(this.onAngularReady_.bind(this, $scope, $element));
   }
 
   /**
@@ -44,19 +45,30 @@ class Controller {
   /**
    * Initialize the map when Angular has finished loading the DOM.
    *
+   * @param {!angular.Scope} $scope
    * @param {!angular.JQLite} $element
    * @param {string=} opt_err Error message if a failure occurred.
    * @private
    */
-  onAngularReady_($element, opt_err) {
-    console.log('here', this, arguments);
-    var Clazz = this.type_;
+  onAngularReady_($scope, $element, opt_err) {
+    const Clazz = this.type_;
     try {
+      // inject/run the svelte component
       new Clazz({
-        target: $element[0]
+        target: $element[0],
+        props: $scope
       });
+
+      // TODO get rid of this as soon as possible -- the Svelte component should NOT have any AngularJS in it.
+      const injector = $element.injector();
+      const $compile = (injector) ? injector.get('$compile') : null;
+
+      // angular-compile the svelte-injected HTML
+      if ($compile) {
+        $compile($element)($scope);
+      }
     } catch (e) {
-      console.log(e);
+      console.log(`Could not initialize Svelte component, ${this.type_}`, e);
     }
   }
 }
